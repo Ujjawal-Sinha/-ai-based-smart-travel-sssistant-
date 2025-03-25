@@ -100,4 +100,3 @@ export default function WeatherInfo({ destination, weather }: WeatherInfoProps) 
     </div>
   )
 }
-

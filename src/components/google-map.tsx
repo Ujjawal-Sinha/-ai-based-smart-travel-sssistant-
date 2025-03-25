@@ -3,6 +3,10 @@
 import { useEffect, useRef, useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
+// import { Link } from "lucide-react"
+import Link from "next/link"
+
+// import {GoogleMap, InfoWindowF, MarkerF, UseJsApiLoder} from "@react-google-maps/api"
 
 interface Place {
   name: string
@@ -35,10 +39,10 @@ export default function GoogleMap({ destination, places }: GoogleMapProps) {
     mockLoadMap()
 
     // In a real implementation, you would do something like:
-    /*
+    
     // Load Google Maps API
     const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${YOUR_API_KEY}&libraries=places`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyC_iA-qprI1m5MfNfHocziJmvvqe3ed6lE&libraries=places`;
     script.async = true;
     script.defer = true;
     script.onload = initMap;
@@ -79,7 +83,7 @@ export default function GoogleMap({ destination, places }: GoogleMapProps) {
       }
       setLoading(false);
     }
-    */
+    
 
     return () => {
       // Cleanup if needed
@@ -119,12 +123,24 @@ export default function GoogleMap({ destination, places }: GoogleMapProps) {
                 {places.slice(0, 6).map((place, index) => (
                   <div key={index} className="bg-white p-2 rounded-md shadow-sm">
                     <p className="font-medium truncate">{place.name}</p>
-                    {place.address && <p className="text-muted-foreground truncate">{place.address}</p>}
+                    {/* {place.address && <p className="text-muted-foreground truncate">{<Link>place.address</Link>}</p>} */}
+                    {place.address && (
+                            <p className="text-muted-foreground truncate">
+                          <Link
+                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                          place.address
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {place.address}
+                      </Link>
+                    </p>
+                  )}
                   </div>
                 ))}
               </div>
               <p className="mt-4 text-xs text-muted-foreground">
-                Note: In a real implementation, this would display an interactive Google Map
               </p>
             </div>
           </div>

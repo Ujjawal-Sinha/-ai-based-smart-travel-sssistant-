@@ -82,11 +82,11 @@ export async function generateItinerary(request: ItineraryRequest) {
     `
 
     // Call the Azure OpenAI API
-    const response = await fetch("https://ai-aihackthonhub282549186415.openai.azure.com/openai/deployments/gpt-4/chat/completions?api-version=2025-01-01-preview", {
+    const response = await fetch(process.env.ENDPOINT as string, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "api-key": "Fj1KPt7grC6bAkNja7daZUstpP8wZTXsV6Zjr2FOxkO7wsBQ5SzQJQQJ99BCACHYHv6XJ3w3AAAAACOGL3Xg",
+        "api-key": process.env.API_KEY as string,
       },
       body: JSON.stringify({
         messages: [

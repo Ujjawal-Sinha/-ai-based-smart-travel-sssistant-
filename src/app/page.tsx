@@ -95,7 +95,7 @@ export default function Home() {
       <h1 className="text-4xl font-bold text-center mb-8">AI Travel Planner</h1>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <Card className="lg:col-span-1">
+        <Card className="lg:col-span-3">
           <CardHeader>
             <CardTitle>Plan Your Trip</CardTitle>
             <CardDescription>Fill in the details below to generate your personalized travel itinerary</CardDescription>
@@ -192,7 +192,7 @@ export default function Home() {
           </CardContent>
         </Card>
 
-        <Card className="lg:col-span-2">
+        <Card className="lg:col-span-4">
           {itineraryData ? (
             <CardContent className="p-0">
               <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
@@ -245,7 +245,7 @@ export default function Home() {
             </CardContent>
           ) : (
             <CardContent className="flex flex-col items-center justify-center min-h-[600px] text-center p-8">
-              <img src="/placeholder.svg?height=200&width=200" alt="Travel illustration" className="mb-6 opacity-50" />
+              <img src="/placeholder.svg?height=200&width=10" alt="Travel illustration" className="mb-6 opacity-50" />
               <h3 className="text-2xl font-semibold mb-2">Ready to plan your adventure?</h3>
               <p className="text-muted-foreground max-w-md">
                 Fill in your travel details on the left and click "Generate Itinerary" to create your personalized
