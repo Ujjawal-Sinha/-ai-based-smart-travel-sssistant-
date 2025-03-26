@@ -3,10 +3,13 @@
 import { useEffect, useRef, useState } from "react"
 import { Card } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
-// import { Link } from "lucide-react"
 import Link from "next/link"
 
-// import {GoogleMap, InfoWindowF, MarkerF, UseJsApiLoder} from "@react-google-maps/api"
+declare global {
+  interface Window {
+    google: any; 
+  }
+}
 
 interface Place {
   name: string
@@ -24,69 +27,64 @@ export default function GoogleMap({ destination, places }: GoogleMapProps) {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    // This is a mock implementation since we can't actually load Google Maps in this environment
-    // In a real application, you would load the Google Maps API and create a map
-
-    const mockLoadMap = () => {
-      // Simulate loading delay
-      setTimeout(() => {
-        if (mapRef.current) {
-          setLoading(false)
+    const loadGoogleMapsApi = () => {
+      return new Promise<void>((resolve, reject) => {
+        if (window.google) {
+          resolve(); 
+          return;
         }
-      }, 1500)
-    }
 
-    mockLoadMap()
+        const script = document.createElement('script');
+        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyC_iA-qprI1m5MfNfHocziJmvvqe3ed6lE&libraries=places`;
+        script.async = true;
+        script.defer = true;
+        script.onload = () => resolve();
+        script.onerror = () => reject(new Error("Failed to load Google Maps"));
+        document.head.appendChild(script);
+      });
+    };
 
-    // In a real implementation, you would do something like:
-    
-    // Load Google Maps API
-    const script = document.createElement('script');
-    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyC_iA-qprI1m5MfNfHocziJmvvqe3ed6lE&libraries=places`;
-    script.async = true;
-    script.defer = true;
-    script.onload = initMap;
-    script.onerror = () => setError("Failed to load Google Maps");
-    document.head.appendChild(script);
+    loadGoogleMapsApi()
+      .then(() => {
+        if (mapRef.current) {
+          const map = new window.google.maps.Map(mapRef.current, {
+            center: { lat: 0, lng: 0 },
+            zoom: 12,
+          });
 
-    function initMap() {
-      if (mapRef.current) {
-        const map = new google.maps.Map(mapRef.current, {
-          center: { lat: 0, lng: 0 },
-          zoom: 12,
-        });
-
-        // Geocode the destination to center the map
-        const geocoder = new google.maps.Geocoder();
-        geocoder.geocode({ address: destination }, (results, status) => {
-          if (status === "OK" && results && results[0]) {
-            map.setCenter(results[0].geometry.location);
-            
-            // Add markers for each place
-            places.forEach(place => {
-              if (place.address) {
-                geocoder.geocode({ address: place.address }, (results, status) => {
-                  if (status === "OK" && results && results[0]) {
-                    new google.maps.Marker({
-                      map,
-                      position: results[0].geometry.location,
-                      title: place.name
-                    });
-                  }
-                });
-              }
-            });
-          } else {
-            setError("Could not find location on map");
-          }
-        });
-      }
-      setLoading(false);
-    }
-    
+          const geocoder = new window.google.maps.Geocoder();
+          geocoder.geocode({ address: destination }, (results: { geometry: { location: any } }[], status: string) => {
+            if (status === "OK" && results && results[0]) {
+              map.setCenter(results[0].geometry.location);
+              
+              places.forEach(place => {
+                if (place.address) {
+                  geocoder.geocode({ address: place.address }, (results: { geometry: { location: any } }[], status: string) => {
+                    if (status === "OK" && results && results[0]) {
+                      new window.google.maps.Marker({
+                        map,
+                        position: results[0].geometry.location,
+                        title: place.name
+                      });
+                    }
+                  });
+                }
+              });
+            } else {
+              setError("Could not find location on map");
+            }
+          });
+        }
+      })
+      .catch(err => {
+        setError(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
 
     return () => {
-      // Cleanup if needed
+      
     }
   }, [destination, places])
 
@@ -114,7 +112,6 @@ export default function GoogleMap({ destination, places }: GoogleMapProps) {
         </div>
       ) : (
         <div className="relative h-full w-full">
-          {/* This would be replaced by the actual Google Map in a real implementation */}
           <div ref={mapRef} className="h-full w-full bg-slate-100 flex items-center justify-center">
             <div className="text-center p-4">
               <h3 className="font-medium text-lg mb-2">{destination}</h3>
@@ -123,25 +120,22 @@ export default function GoogleMap({ destination, places }: GoogleMapProps) {
                 {places.slice(0, 6).map((place, index) => (
                   <div key={index} className="bg-white p-2 rounded-md shadow-sm">
                     <p className="font-medium truncate">{place.name}</p>
-                    {/* {place.address && <p className="text-muted-foreground truncate">{<Link>place.address</Link>}</p>} */}
                     {place.address && (
-                            <p className="text-muted-foreground truncate">
-                          <Link
-                        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-                          place.address
-                        )}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        {place.address}
-                      </Link>
-                    </p>
-                  )}
+                      <p className="text-muted-foreground truncate">
+                        <Link
+                          href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+                            place.address
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          {place.address}
+                        </Link>
+                      </p>
+                    )}
                   </div>
                 ))}
               </div>
-              <p className="mt-4 text-xs text-muted-foreground">
-              </p>
             </div>
           </div>
         </div>
@@ -149,4 +143,3 @@ export default function GoogleMap({ destination, places }: GoogleMapProps) {
     </Card>
   )
 }
-

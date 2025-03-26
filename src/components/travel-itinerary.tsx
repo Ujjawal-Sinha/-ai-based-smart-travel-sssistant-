@@ -38,7 +38,6 @@ export default function TravelItinerary({ itinerary }: TravelItineraryProps) {
 
   const currentDay = itinerary[currentDayIndex]
 
-  // Add check for currentDay
   if (!currentDay) {
     return (
       <div className="text-center p-8">

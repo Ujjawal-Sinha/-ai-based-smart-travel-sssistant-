@@ -81,9 +81,9 @@ export default function PackingList({ packingItems, weather, activities }: Packi
               <PackageOpen className="h-5 w-5 mr-2" />
               Packing Progress
             </CardTitle>
-            <Badge variant={progress.percentage === 100 ? "success" : "outline"}>
-              {progress.checked}/{progress.total} items
-            </Badge>
+            <Badge variant={progress.percentage === 100 ? "secondary" : "outline"}>
+      {progress.checked}/{progress.total} items
+    </Badge>
           </div>
           <CardDescription>
             {progress.percentage === 100 ? "All packed and ready to go!" : `${progress.percentage}% packed`}

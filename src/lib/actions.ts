@@ -8,16 +8,12 @@ interface ItineraryRequest {
   travelWith: string
 }
 
-// Replace the generateItinerary function with this implementation that uses the actual Azure OpenAI API
-
 export async function generateItinerary(request: ItineraryRequest) {
   try {
-    // Calculate the number of days for the itinerary
     const start = new Date(request.startDate)
     const end = new Date(request.endDate)
     const dayDiff = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1
 
-    // Create a prompt for the AI
     const prompt = `
       Create a detailed travel itinerary for ${request.destination} from ${new Date(request.startDate).toLocaleDateString()} to ${new Date(request.endDate).toLocaleDateString()}.
       The trip is for ${dayDiff} days.
@@ -81,7 +77,6 @@ export async function generateItinerary(request: ItineraryRequest) {
       For the packing list, include items that are appropriate for the activities, weather, and destination.
     `
 
-    // Call the Azure OpenAI API
     const response = await fetch(process.env.ENDPOINT as string, {
       method: "POST",
       headers: {
@@ -114,9 +109,7 @@ export async function generateItinerary(request: ItineraryRequest) {
 
     const data = await response.json()
 
-    // Parse the JSON response from the content field
     try {
-      // The response should be in the choices[0].message.content field
       const jsonContent = data.choices[0].message.content
       const itineraryData = JSON.parse(jsonContent)
       return itineraryData
@@ -124,13 +117,11 @@ export async function generateItinerary(request: ItineraryRequest) {
       console.error("Error parsing JSON response:", parseError)
       console.log("Raw response:", data)
 
-      // Fallback to mock data if parsing fails
       return generateMockItineraryData(request.destination, start, dayDiff, request.interests, request.travelWith)
     }
   } catch (error) {
     console.error("Error generating itinerary:", error)
 
-    // For development/demo purposes, fall back to mock data if the API call fails
     const start = new Date(request.startDate)
     const end = new Date(request.endDate)
     const dayDiff = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1
@@ -139,7 +130,6 @@ export async function generateItinerary(request: ItineraryRequest) {
   }
 }
 
-// Keep the generateMockItineraryData function as a fallback
 
 function generateMockItineraryData(
   destination: string,
@@ -148,7 +138,6 @@ function generateMockItineraryData(
   interests: string[],
   travelWith: string,
 ) {
-  // Mock data for demonstration purposes
   const itinerary = []
   const isAdventure = interests.includes("adventure")
   const isHistorical = interests.includes("historical")
@@ -156,7 +145,6 @@ function generateMockItineraryData(
   const isNature = interests.includes("nature")
   const isSightseeing = interests.includes("sightseeing")
 
-  // Generate daily itinerary
   for (let i = 0; i < days; i++) {
     const currentDate = new Date(startDate)
     currentDate.setDate(startDate.getDate() + i)
@@ -236,7 +224,6 @@ function generateMockItineraryData(
     itinerary.push(dayPlan)
   }
 
-  // Generate places to visit
   const places = [
     {
       name: `${destination} Historical Museum`,
@@ -290,7 +277,6 @@ function generateMockItineraryData(
     },
   ]
 
-  // Generate weather information
   const weather = []
   for (let i = 0; i < days; i++) {
     const currentDate = new Date(startDate)
@@ -313,7 +299,6 @@ function generateMockItineraryData(
     })
   }
 
-  // Generate packing list based on interests and weather
   const packingList = [
     {
       name: "Passport and ID",
@@ -450,7 +435,6 @@ function generateMockItineraryData(
     },
   ]
 
-  // Return the complete mock data
   return {
     itinerary,
     places,

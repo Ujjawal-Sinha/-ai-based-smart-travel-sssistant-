@@ -4,17 +4,14 @@ export async function POST(request: NextRequest) {
   try {
     const { destination, startDate, endDate, interests, travelWith } = await request.json()
 
-    // Validate input
     if (!destination || !startDate || !endDate || !interests || !travelWith) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
-    // Calculate the number of days
     const start = new Date(startDate)
     const end = new Date(endDate)
     const dayDiff = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24)) + 1
 
-    // Create a prompt for the AI
     const prompt = `
       Create a detailed travel itinerary for ${destination} from ${new Date(startDate).toLocaleDateString()} to ${new Date(endDate).toLocaleDateString()}.
       The trip is for ${dayDiff} days.
@@ -74,7 +71,6 @@ export async function POST(request: NextRequest) {
       }
     `
 
-    // Call the Azure OpenAI API
     const response = await fetch(process.env.ENDPOINT as string, {
       method: "POST",
       headers: {
@@ -107,7 +103,6 @@ export async function POST(request: NextRequest) {
 
     const data = await response.json()
 
-    // Return the AI response
     return NextResponse.json({
       success: true,
       data: data.choices[0].message.content,
