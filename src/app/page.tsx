@@ -18,6 +18,7 @@ import PlaceDetails from "@/components/place-details"
 import WeatherInfo from "@/components/weather-info"
 import PackingList from "@/components/packing-list"
 import GoogleMap from "@/components/google-map"
+import ChatToggleButton from "@/components/chat-toggle-button"
 
 const interests = [
   { id: "adventure", label: "Adventure" },
@@ -255,6 +256,9 @@ export default function Home() {
           )}
         </Card>
       </div>
+
+      {/* Chat toggle button */}
+      <ChatToggleButton />
     </main>
   )
 }
