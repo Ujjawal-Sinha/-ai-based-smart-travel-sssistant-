@@ -35,7 +35,7 @@ export default function GoogleMap({ destination, places }: GoogleMapProps) {
         }
 
         const script = document.createElement('script');
-        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyC_iA-qprI1m5MfNfHocziJmvvqe3ed6lE&libraries=places`;
+        script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_API_KEY}&libraries=places`;
         script.async = true;
         script.defer = true;
         script.onload = () => resolve();
