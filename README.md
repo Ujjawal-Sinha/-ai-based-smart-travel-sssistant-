@@ -83,4 +83,6 @@ Ensure you have the following installed:
    Open http://localhost:3000 in your web browser to use the AI-Based Trip Planner.
 
 
+
+
   Enjoy your AI-planned trip! 😊  
