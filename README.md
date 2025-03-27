@@ -38,23 +38,27 @@ Ensure you have the following installed:
    npm install react@18 react-dom@18
 
  4. **Set Up Environment Variables:**  
-      The application requires specific environment variables for configuration. Follow these steps to set them up:
+
+
+    The application requires specific environment variables for configuration. Follow these steps to set them up:
 
       - **Install the dotenv Package (if not already installed):**
       
-       ```bash
-       npm install dotenv --save
-       ```
+          ```bash
+          npm install dotenv --save
+          ```
 
-      - **Create a .env File:**  
-      In the root directory of your project, create a file named .env and add your API keys and endpoints:
+      - **Create a .env File:**
 
-      ```bash
-      ENDPOINT=your_end_point
-      API_KEY=your_api_key
-      GOOGLE_API_KEY=your_google_api_key
-      ```
-    *Replace your_end_point, your_api_key, and your_google_api_key with your actual credentials.*
+
+           In the root directory of your project, create a file named .env and add your API keys and endpoints:
+
+         ```bash
+         ENDPOINT=your_end_point
+         API_KEY=your_api_key
+         GOOGLE_API_KEY=your_google_api_key
+         ```
+           *Replace your_end_point, your_api_key, and your_google_api_key with your actual credentials.*
 
 
 ## Usage
@@ -74,7 +78,7 @@ Ensure you have the following installed:
     bun dev
     ```
 
-  1. **Start the Development Server:**
+  2. **Start the Development Server:**
 
    Open http://localhost:3000 in your web browser to use the AI-Based Trip Planner.
 
