@@ -1,40 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI-Based Trip Planner
 
-## Getting Started
+An intelligent trip planning application that personalizes travel itineraries based on user preferences. Leveraging AI, it recommends activities, suggests packing lists, and provides weather insights for your chosen destination and dates.
 
-```bash
-git clone https://github.com/Ujjawal-Sinha/-ai-based-smart-travel-sssistant-.git
-```
+## Features
 
-First, run the development server:
+- **Personalized Itineraries:** Input your destination, travel dates, preferred activities, and companions to receive a customized travel plan.
+- **Packing Recommendations:** Get a tailored packing list based on selected activities and expected weather conditions.
+- **Weather Forecasts:** Access weather predictions for your destination during your travel period to plan accordingly.
+- **User-Friendly Interface:** Navigate effortlessly through a clean and intuitive design.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Prerequisites
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Ensure you have the following installed:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Node.js** (v14 or later)
+- **npm** (Node Package Manager, comes with Node.js)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Installation
 
-## Learn More
+1. **Clone the Repository:**
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   git clone https://github.com/Ujjawal-Sinha/ai-based-smart-travel-assistant.git
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Navigate to the Project Directory:**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   cd ai-based-smart-travel-assistant
 
-## Deploy on Vercel
+3. **Install Dependencies:**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   npm install
+   ```
+   If you encounter issues related to React version compatibility, run:
+   ```bash
+   npm install react@18 react-dom@18
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+ 4. **Set Up Environment Variables:**  
+      The application requires specific environment variables for configuration. Follow these steps to set them up:
+
+      - **Install the dotenv Package (if not already installed):**
+      
+       ```bash
+       npm install dotenv --save
+       ```
+
+      - **Create a .env File:**  
+      In the root directory of your project, create a file named .env and add your API keys and endpoints:
+
+      ```bash
+      ENDPOINT=your_end_point
+      API_KEY=your_api_key
+      GOOGLE_API_KEY=your_google_api_key
+      ```
+    *Replace your_end_point, your_api_key, and your_google_api_key with your actual credentials.*
+
+
+## Usage
+
+  1. **Start the Development Server:**
+
+     ```bash
+     npm run dev
+     ```
+     
+  Alternatively, you can use:
+    ```bash
+    yarn dev
+    # or
+    pnpm dev
+    # or
+    bun dev
+    ```
+
+  1. **Start the Development Server:**
+
+   Open http://localhost:3000 in your web browser to use the AI-Based Trip Planner.
+
+
+  Enjoy your AI-planned trip! 😊  
