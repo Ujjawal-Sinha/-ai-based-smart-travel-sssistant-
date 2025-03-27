@@ -80,7 +80,7 @@ Ensure you have the following installed:
 
   2. **Start the Development Server:**
 
-   Open http://localhost:3000 in your web browser to use the AI-Based Trip Planner.
+      Open http://localhost:3000 in your web browser to use the AI-Based Trip Planner.
 
 
 
