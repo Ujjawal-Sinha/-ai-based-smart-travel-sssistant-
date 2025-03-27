@@ -69,14 +69,14 @@ Ensure you have the following installed:
      npm run dev
      ```
      
-  Alternatively, you can use:
-    ```bash
-    yarn dev
-    # or
-    pnpm dev
-    # or
-    bun dev
-    ```
+     Alternatively, you can use:
+     ```bash
+     yarn dev
+     # or
+     pnpm dev
+     # or
+     bun dev
+     ```
 
   2. **Start the Development Server:**
 
